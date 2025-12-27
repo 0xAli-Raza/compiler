@@ -51,7 +51,7 @@ graph TD
 
 ```bash
 # Step 1: Compile with Mini-C Compiler
-python [compiler.py](http://compiler.py) [test.mini](http://test.mini) --target=c
+python compiler.py test.mini --target=c
 
 # Step 2: Compile generated C code with GCC
 gcc test.c -o test
