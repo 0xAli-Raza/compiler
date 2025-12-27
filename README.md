@@ -1,4 +1,4 @@
-# Mini-C Compiler Documentation
+# <div align=center> Mini-C Compiler Documentation</div>
 
 This is my semester project for course **Compiler construction**.
 This is a group project where I have designed, implement, test and integrate the parser.
