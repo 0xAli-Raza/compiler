@@ -76,16 +76,16 @@ gcc test.c -o test
 
 ```bash
 # Compile with full optimization (default)
-python [compiler.py](http://compiler.py) [program.mini](http://program.mini)
+python compiler.py program.mini
 
 # Compile with no optimization
 python compiler.py program.mini -O0
 
 # Show all phases
-python [compiler.py](http://compiler.py) [program.mini](http://program.mini) --all
+python compiler.py program.mini --all
 
 # Generate C code
-python [compiler.py](http://compiler.py) [program.mini](http://program.mini) --target=c
+python compiler.py program.mini --target=c
 ```
 
 ---
