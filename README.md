@@ -1,7 +1,7 @@
 # <div align=center> Mini-C Compiler Documentation</div>
-
-This is my semester project for course **Compiler construction**.
-This is a group project where I have designed, implement, test and integrate the parser.
+<div align=cneter>
+This is my semester project for the course Compiler Construction.
+It is a group project in which I designed, implemented, tested, and integrated the parser.</div>
 
 ---
 
