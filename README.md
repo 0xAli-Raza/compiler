@@ -23,49 +23,29 @@ This is a group project where I have designed, implement, test and integrate the
 
 ## Architecture
 
-```
-Source Code (.mini)
-        ↓
-┌─────────────────────┐
-│ Lexical Analysis    │ → Tokens
-│ ([lexer.py](http://lexer.py))          │
-└─────────────────────┘
-        ↓
-┌─────────────────────┐
-│ Syntax Analysis     │ → AST
-│ ([ParserV2.py](http://ParserV2.py))       │
-└─────────────────────┘
-        ↓
-┌─────────────────────┐
-│ Semantic Analysis   │ → Type-checked AST
-│ ([semantic.py](http://semantic.py))       │
-└─────────────────────┘
-        ↓
-┌─────────────────────┐
-│ IR Generation       │ → Three-Address Code
-│ (ir_[generator.py](http://generator.py))   │
-└─────────────────────┘
-        ↓
-┌─────────────────────┐
-│ Optimization        │ → Optimized IR
-│ ([optimizer.py](http://optimizer.py))      │
-└─────────────────────┘
-        ↓
-┌─────────────────────┐
-│ Code Generation     │ → Target Code (C)
-│(code_[generator.py](http://generator.py))  │
-└─────────────────────┘
+```mermaid
+graph TD
+    A["Source Code (.mini)"]
+        -- "Characters / Lexemes" -->
+    B["Lexical Analysis<br/>(lexer.py)"]
+        -- "Tokens" -->
+    C["Syntax Analysis<br/>(ParserV2.py)"]
+        -- "AST" -->
+    D["Semantic Analysis<br/>(semantic.py)"]
+        -- "Type-checked AST" -->
+    E["IR Generation<br/>(ir_generator.py)"]
+        -- "Three-Address Code (IR)" -->
+    F["Optimization<br/>(optimizer.py)"]
+        -- "Optimized IR" -->
+    G["Code Generation<br/>(code_generator.py)"]
+        -- "Target Code (C)" -->
+    H["Executable / Output"]
+
 ```
 
 ---
 
 ## Installation & Usage
-
-### Requirements
-
-```bash
-pip install colorama
-```
 
 ### Basic Usage
 
@@ -99,7 +79,7 @@ gcc test.c -o test
 python [compiler.py](http://compiler.py) [program.mini](http://program.mini)
 
 # Compile with no optimization
-python [compiler.py](http://compiler.py) [program.mini](http://program.mini) -O0
+python compiler.py program.mini -O0
 
 # Show all phases
 python [compiler.py](http://compiler.py) [program.mini](http://program.mini) --all
