@@ -936,7 +936,7 @@ PHASE 6: CODE GENERATION (Target: C)
 COMPILATION SUMMARY
 ======================================================================
 
-    Source File     : test.compile
+    Source File     : test.mini
     Output File     : test.c
     Target          : C
     Optimization    : O2
