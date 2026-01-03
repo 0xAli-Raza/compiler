@@ -435,10 +435,10 @@ class Parser:
 
     # Main Parse Entry
     def parse(self):
-        print("🔍 Starting parsing...")
+        print("Starting parsing...")
         ast = self.program()
         if not self.errors:
-            print("✅ Parsing completed successfully!")
+            print("Parsing completed successfully!")
         return ast
 
     def program(self):

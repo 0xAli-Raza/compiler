@@ -1,0 +1,1166 @@
+UNOPTIMIZED IR:
+----------------------------------------
+
+add:
+    PARAM_DECLARE int a
+    PARAM_DECLARE int b
+    t1 = a + b
+    RETURN t1
+    END_FUNC add
+
+subtract:
+    PARAM_DECLARE int a
+    PARAM_DECLARE int b
+    DECLARE int result
+    t1 = a - b
+    result = t1
+    RETURN result
+    END_FUNC subtract
+
+max:
+    PARAM_DECLARE int a
+    PARAM_DECLARE int b
+    t1 = a > b
+    IF_FALSE t1 GOTO ELSE1
+    RETURN a
+    GOTO ENDIF2
+ELSE1:
+    RETURN b
+ENDIF2:
+    RETURN 0
+    END_FUNC max
+
+min:
+    PARAM_DECLARE int a
+    PARAM_DECLARE int b
+    t1 = a < b
+    IF_FALSE t1 GOTO ENDIF4
+    RETURN a
+ENDIF4:
+    RETURN b
+    END_FUNC min
+
+factorial:
+    PARAM_DECLARE int n
+    DECLARE int result
+    result = 1
+    DECLARE int i
+    i = 1
+WHILE_START5:
+    t1 = i <= n
+    IF_FALSE t1 GOTO WHILE_END6
+    t2 = result * i
+    result = t2
+    t3 = i + 1
+    i = t3
+    GOTO WHILE_START5
+WHILE_END6:
+    RETURN result
+    END_FUNC factorial
+
+sum_to_n:
+    PARAM_DECLARE int n
+    DECLARE int sum
+    sum = 0
+    DECLARE int i
+    i = 1
+FOR_START7:
+    t1 = i <= n
+    IF_FALSE t1 GOTO FOR_END9
+    t2 = sum + i
+    sum = t2
+FOR_UPDATE8:
+    t3 = i + 1
+    i = t3
+    GOTO FOR_START7
+FOR_END9:
+    RETURN sum
+    END_FUNC sum_to_n
+
+fib:
+    PARAM_DECLARE int n
+    t1 = n <= 1
+    IF_FALSE t1 GOTO ENDIF11
+    RETURN n
+ENDIF11:
+    t2 = n - 1
+    PARAM t2
+    t3 = CALL fib, 1
+    t4 = n - 2
+    PARAM t4
+    t5 = CALL fib, 1
+    t6 = t3 + t5
+    RETURN t6
+    END_FUNC fib
+
+find_first_divisible:
+    PARAM_DECLARE int limit
+    PARAM_DECLARE int divisor
+    DECLARE int result
+    result = 0
+    DECLARE int i
+    i = 1
+FOR_START12:
+    t1 = i <= limit
+    IF_FALSE t1 GOTO FOR_END14
+    t2 = i % divisor
+    t3 = t2 == 0
+    IF_FALSE t3 GOTO ENDIF16
+    result = i
+    GOTO FOR_END14
+ENDIF16:
+FOR_UPDATE13:
+    t4 = i + 1
+    i = t4
+    GOTO FOR_START12
+FOR_END14:
+    RETURN result
+    END_FUNC find_first_divisible
+
+sum_skip_fives:
+    PARAM_DECLARE int n
+    DECLARE int sum
+    sum = 0
+    DECLARE int i
+    i = 1
+FOR_START17:
+    t1 = i <= n
+    IF_FALSE t1 GOTO FOR_END19
+    t2 = i % 5
+    t3 = t2 == 0
+    IF_FALSE t3 GOTO ENDIF21
+    GOTO FOR_UPDATE18
+ENDIF21:
+    t4 = sum + i
+    sum = t4
+FOR_UPDATE18:
+    t5 = i + 1
+    i = t5
+    GOTO FOR_START17
+FOR_END19:
+    RETURN sum
+    END_FUNC sum_skip_fives
+
+main:
+    PARAM STR1
+    t1 = CALL printf, 1
+    DECLARE int a
+    a = 10
+    DECLARE int b
+    b = 20
+    DECLARE float pi
+    pi = 3.14
+    DECLARE int zero
+    zero = 0
+    PARAM STR2
+    t2 = CALL printf, 1
+    PARAM STR3
+    t3 = CALL printf, 1
+    DECLARE int sum
+    t4 = a + b
+    sum = t4
+    DECLARE int diff
+    t5 = b - a
+    diff = t5
+    DECLARE int prod
+    t6 = a * b
+    prod = t6
+    DECLARE int quot
+    t7 = b / a
+    quot = t7
+    DECLARE int mod
+    t8 = b % a
+    mod = t8
+    PARAM STR4
+    t9 = CALL printf, 1
+    PARAM STR5
+    t10 = CALL printf, 1
+    PARAM STR6
+    t11 = CALL printf, 1
+    PARAM STR7
+    t12 = CALL printf, 1
+    PARAM STR8
+    t13 = CALL printf, 1
+    PARAM STR9
+    t14 = CALL printf, 1
+    DECLARE int x
+    x = 10
+    t15 = x + 5
+    x = t15
+    PARAM STR10
+    t16 = CALL printf, 1
+    t17 = x - 3
+    x = t17
+    PARAM STR11
+    t18 = CALL printf, 1
+    t19 = x * 2
+    x = t19
+    PARAM STR12
+    t20 = CALL printf, 1
+    t21 = x / 4
+    x = t21
+    PARAM STR13
+    t22 = CALL printf, 1
+    PARAM STR14
+    t23 = CALL printf, 1
+    DECLARE int test_result
+    test_result = 0
+    t24 = 5 < 10
+    IF_FALSE t24 GOTO ENDIF23
+    PARAM STR15
+    t25 = CALL printf, 1
+    t26 = test_result + 1
+    test_result = t26
+ENDIF23:
+    t27 = 10 > 5
+    IF_FALSE t27 GOTO ENDIF25
+    PARAM STR16
+    t28 = CALL printf, 1
+    t29 = test_result + 1
+    test_result = t29
+ENDIF25:
+    t30 = 5 <= 5
+    IF_FALSE t30 GOTO ENDIF27
+    PARAM STR17
+    t31 = CALL printf, 1
+    t32 = test_result + 1
+    test_result = t32
+ENDIF27:
+    t33 = 10 >= 10
+    IF_FALSE t33 GOTO ENDIF29
+    PARAM STR18
+    t34 = CALL printf, 1
+    t35 = test_result + 1
+    test_result = t35
+ENDIF29:
+    t36 = 5 == 5
+    IF_FALSE t36 GOTO ENDIF31
+    PARAM STR19
+    t37 = CALL printf, 1
+    t38 = test_result + 1
+    test_result = t38
+ENDIF31:
+    t39 = 5 != 10
+    IF_FALSE t39 GOTO ENDIF33
+    PARAM STR20
+    t40 = CALL printf, 1
+    t41 = test_result + 1
+    test_result = t41
+ENDIF33:
+    PARAM STR21
+    t42 = CALL printf, 1
+    t43 = 5 > 3
+    t44 = 10 > 5
+    t45 = t43 && t44
+    IF_FALSE t45 GOTO ENDIF35
+    PARAM STR22
+    t46 = CALL printf, 1
+ENDIF35:
+    t47 = 5 < 3
+    t48 = 10 > 5
+    t49 = t47 || t48
+    IF_FALSE t49 GOTO ENDIF37
+    PARAM STR23
+    t50 = CALL printf, 1
+ENDIF37:
+    t51 = !zero
+    IF_FALSE t51 GOTO ENDIF39
+    PARAM STR24
+    t52 = CALL printf, 1
+ENDIF39:
+    PARAM STR25
+    t53 = CALL printf, 1
+    DECLARE int score
+    score = 85
+    t54 = score >= 90
+    IF_FALSE t54 GOTO ELSE40
+    PARAM STR26
+    t55 = CALL printf, 1
+    GOTO ENDIF41
+ELSE40:
+    t56 = score >= 80
+    IF_FALSE t56 GOTO ELSE42
+    PARAM STR27
+    t57 = CALL printf, 1
+    GOTO ENDIF43
+ELSE42:
+    t58 = score >= 70
+    IF_FALSE t58 GOTO ELSE44
+    PARAM STR28
+    t59 = CALL printf, 1
+    GOTO ENDIF45
+ELSE44:
+    PARAM STR29
+    t60 = CALL printf, 1
+ENDIF45:
+ENDIF43:
+ENDIF41:
+    PARAM STR30
+    t61 = CALL printf, 1
+    DECLARE int while_sum
+    while_sum = 0
+    DECLARE int i
+    i = 1
+WHILE_START46:
+    t62 = i <= 5
+    IF_FALSE t62 GOTO WHILE_END47
+    t63 = while_sum + i
+    while_sum = t63
+    t64 = i + 1
+    i = t64
+    GOTO WHILE_START46
+WHILE_END47:
+    PARAM STR31
+    t65 = CALL printf, 1
+    PARAM STR32
+    t66 = CALL printf, 1
+    DECLARE int for_sum
+    for_sum = 0
+    DECLARE int j
+    j = 1
+FOR_START48:
+    t67 = j <= 10
+    IF_FALSE t67 GOTO FOR_END50
+    t68 = for_sum + j
+    for_sum = t68
+FOR_UPDATE49:
+    t69 = j + 1
+    j = t69
+    GOTO FOR_START48
+FOR_END50:
+    PARAM STR33
+    t70 = CALL printf, 1
+    PARAM STR34
+    t71 = CALL printf, 1
+    DECLARE int count
+    count = 0
+    DECLARE int row
+    row = 0
+FOR_START51:
+    t72 = row < 3
+    IF_FALSE t72 GOTO FOR_END53
+    DECLARE int col
+    col = 0
+FOR_START54:
+    t73 = col < 4
+    IF_FALSE t73 GOTO FOR_END56
+    t74 = count + 1
+    count = t74
+FOR_UPDATE55:
+    t75 = col + 1
+    col = t75
+    GOTO FOR_START54
+FOR_END56:
+FOR_UPDATE52:
+    t76 = row + 1
+    row = t76
+    GOTO FOR_START51
+FOR_END53:
+    PARAM STR35
+    t77 = CALL printf, 1
+    PARAM STR36
+    t78 = CALL printf, 1
+    DECLARE int break_sum
+    break_sum = 0
+    DECLARE int k
+    k = 1
+FOR_START57:
+    t79 = k <= 100
+    IF_FALSE t79 GOTO FOR_END59
+    t80 = k > 5
+    IF_FALSE t80 GOTO ENDIF61
+    GOTO FOR_END59
+ENDIF61:
+    t81 = break_sum + k
+    break_sum = t81
+FOR_UPDATE58:
+    t82 = k + 1
+    k = t82
+    GOTO FOR_START57
+FOR_END59:
+    PARAM STR37
+    t83 = CALL printf, 1
+    PARAM STR38
+    t84 = CALL printf, 1
+    DECLARE int cont_sum
+    cont_sum = 0
+    DECLARE int m
+    m = 1
+FOR_START62:
+    t85 = m <= 10
+    IF_FALSE t85 GOTO FOR_END64
+    t86 = m == 5
+    IF_FALSE t86 GOTO ENDIF66
+    GOTO FOR_UPDATE63
+ENDIF66:
+    t87 = cont_sum + m
+    cont_sum = t87
+FOR_UPDATE63:
+    t88 = m + 1
+    m = t88
+    GOTO FOR_START62
+FOR_END64:
+    PARAM STR39
+    t89 = CALL printf, 1
+    PARAM STR40
+    t90 = CALL printf, 1
+    DECLARE int add_result
+    PARAM 15
+    PARAM 25
+    t91 = CALL add, 2
+    add_result = t91
+    PARAM STR41
+    t92 = CALL printf, 1
+    DECLARE int sub_result
+    PARAM 100
+    PARAM 37
+    t93 = CALL subtract, 2
+    sub_result = t93
+    PARAM STR42
+    t94 = CALL printf, 1
+    DECLARE int max_result
+    PARAM 42
+    PARAM 17
+    t95 = CALL max, 2
+    max_result = t95
+    PARAM STR43
+    t96 = CALL printf, 1
+    DECLARE int min_result
+    PARAM 42
+    PARAM 17
+    t97 = CALL min, 2
+    min_result = t97
+    PARAM STR44
+    t98 = CALL printf, 1
+    PARAM STR45
+    t99 = CALL printf, 1
+    DECLARE int fact_result
+    PARAM 5
+    t100 = CALL factorial, 1
+    fact_result = t100
+    PARAM STR46
+    t101 = CALL printf, 1
+    DECLARE int sum_result
+    PARAM 10
+    t102 = CALL sum_to_n, 1
+    sum_result = t102
+    PARAM STR47
+    t103 = CALL printf, 1
+    PARAM STR48
+    t104 = CALL printf, 1
+    DECLARE int fib_result
+    PARAM 10
+    t105 = CALL fib, 1
+    fib_result = t105
+    PARAM STR49
+    t106 = CALL printf, 1
+    PARAM STR50
+    t107 = CALL printf, 1
+    DECLARE int first_div
+    PARAM 20
+    PARAM 7
+    t108 = CALL find_first_divisible, 2
+    first_div = t108
+    PARAM STR51
+    t109 = CALL printf, 1
+    PARAM STR52
+    t110 = CALL printf, 1
+    DECLARE int skip_result
+    PARAM 20
+    t111 = CALL sum_skip_fives, 1
+    skip_result = t111
+    PARAM STR53
+    t112 = CALL printf, 1
+    PARAM STR54
+    t113 = CALL printf, 1
+    DECLARE int prec1
+    t114 = 3 * 4
+    t115 = 2 + t114
+    prec1 = t115
+    PARAM STR55
+    t116 = CALL printf, 1
+    DECLARE int prec2
+    t117 = 2 + 3
+    t118 = t117 * 4
+    prec2 = t118
+    PARAM STR56
+    t119 = CALL printf, 1
+    DECLARE int prec3
+    t120 = 4 * 3
+    t121 = 20 - t120
+    t122 = t121 + 2
+    prec3 = t122
+    PARAM STR57
+    t123 = CALL printf, 1
+    PARAM STR58
+    t124 = CALL printf, 1
+    DECLARE int p
+    p = 5
+    DECLARE int q
+    q = 3
+    DECLARE int r
+    r = 2
+    DECLARE int complex1
+    t125 = p + q
+    t126 = t125 * r
+    t127 = p / 1
+    t128 = t126 - t127
+    complex1 = t128
+    PARAM STR59
+    t129 = CALL printf, 1
+    DECLARE int complex2
+    t130 = p * q
+    t131 = r * p
+    t132 = t130 + t131
+    t133 = t132 - q
+    complex2 = t133
+    PARAM STR60
+    t134 = CALL printf, 1
+    PARAM STR61
+    t135 = CALL printf, 1
+    DECLARE int age
+    age = 25
+    DECLARE int has_license
+    has_license = 1
+    t136 = age >= 18
+    t137 = t136 && has_license
+    IF_FALSE t137 GOTO ENDIF68
+    PARAM STR62
+    t138 = CALL printf, 1
+ENDIF68:
+    DECLARE int is_weekend
+    is_weekend = 0
+    DECLARE int is_holiday
+    is_holiday = 1
+    t139 = is_weekend || is_holiday
+    IF_FALSE t139 GOTO ENDIF70
+    PARAM STR63
+    t140 = CALL printf, 1
+ENDIF70:
+    PARAM STR64
+    t141 = CALL printf, 1
+    DECLARE int even_sum
+    even_sum = 0
+    DECLARE int odd_sum
+    odd_sum = 0
+    DECLARE int n
+    n = 1
+FOR_START71:
+    t142 = n <= 10
+    IF_FALSE t142 GOTO FOR_END73
+    t143 = n % 2
+    t144 = t143 == 0
+    IF_FALSE t144 GOTO ELSE74
+    t145 = even_sum + n
+    even_sum = t145
+    GOTO ENDIF75
+ELSE74:
+    t146 = odd_sum + n
+    odd_sum = t146
+ENDIF75:
+FOR_UPDATE72:
+    t147 = n + 1
+    n = t147
+    GOTO FOR_START71
+FOR_END73:
+    PARAM STR65
+    t148 = CALL printf, 1
+    PARAM STR66
+    t149 = CALL printf, 1
+    PARAM STR67
+    t150 = CALL printf, 1
+    PARAM STR68
+    t151 = CALL printf, 1
+    PARAM STR69
+    t152 = CALL printf, 1
+    DECLARE int checksum
+    t153 = add_result + sub_result
+    t154 = t153 + max_result
+    t155 = t154 + min_result
+    checksum = t155
+    RETURN checksum
+    END_FUNC main
+
+
+OPTIMIZED IR:
+----------------------------------------
+
+add:
+    PARAM_DECLARE int a
+    PARAM_DECLARE int b
+    t1 = a + b
+    RETURN t1
+    END_FUNC add
+
+subtract:
+    PARAM_DECLARE int a
+    PARAM_DECLARE int b
+    DECLARE int result
+    t1 = a - b
+    result = t1
+    RETURN result
+    END_FUNC subtract
+
+max:
+    PARAM_DECLARE int a
+    PARAM_DECLARE int b
+    t1 = a > b
+    IF_FALSE t1 GOTO ELSE1
+    RETURN a
+    GOTO ENDIF2
+ELSE1:
+    RETURN b
+ENDIF2:
+    RETURN 0
+    END_FUNC max
+
+min:
+    PARAM_DECLARE int a
+    PARAM_DECLARE int b
+    t1 = a < b
+    IF_FALSE t1 GOTO ENDIF4
+    RETURN a
+ENDIF4:
+    RETURN b
+    END_FUNC min
+
+factorial:
+    PARAM_DECLARE int n
+    DECLARE int result
+    result = 1
+    DECLARE int i
+    i = 1
+WHILE_START5:
+    t1 = i <= n
+    IF_FALSE t1 GOTO WHILE_END6
+    t2 = result * i
+    result = t2
+    t3 = i + 1
+    i = t3
+    GOTO WHILE_START5
+WHILE_END6:
+    RETURN result
+    END_FUNC factorial
+
+sum_to_n:
+    PARAM_DECLARE int n
+    DECLARE int sum
+    sum = 0
+    DECLARE int i
+    i = 1
+FOR_START7:
+    t1 = i <= n
+    IF_FALSE t1 GOTO FOR_END9
+    t2 = sum + i
+    sum = t2
+FOR_UPDATE8:
+    t3 = i + 1
+    i = t3
+    GOTO FOR_START7
+FOR_END9:
+    RETURN sum
+    END_FUNC sum_to_n
+
+fib:
+    PARAM_DECLARE int n
+    t1 = n <= 1
+    IF_FALSE t1 GOTO ENDIF11
+    RETURN n
+ENDIF11:
+    t2 = n - 1
+    PARAM t2
+    t3 = CALL fib, 1
+    t4 = n - 2
+    PARAM t4
+    t5 = CALL fib, 1
+    t6 = t3 + t5
+    RETURN t6
+    END_FUNC fib
+
+find_first_divisible:
+    PARAM_DECLARE int limit
+    PARAM_DECLARE int divisor
+    DECLARE int result
+    result = 0
+    DECLARE int i
+    i = 1
+FOR_START12:
+    t1 = i <= limit
+    IF_FALSE t1 GOTO FOR_END14
+    t2 = i % divisor
+    t3 = t2 == 0
+    IF_FALSE t3 GOTO ENDIF16
+    result = i
+    GOTO FOR_END14
+ENDIF16:
+FOR_UPDATE13:
+    t4 = i + 1
+    i = t4
+    GOTO FOR_START12
+FOR_END14:
+    RETURN result
+    END_FUNC find_first_divisible
+
+sum_skip_fives:
+    PARAM_DECLARE int n
+    DECLARE int sum
+    sum = 0
+    DECLARE int i
+    i = 1
+FOR_START17:
+    t1 = i <= n
+    IF_FALSE t1 GOTO FOR_END19
+    t2 = i % 5
+    t3 = t2 == 0
+    IF_FALSE t3 GOTO ENDIF21
+    GOTO FOR_UPDATE18
+ENDIF21:
+    t4 = sum + i
+    sum = t4
+FOR_UPDATE18:
+    t5 = i + 1
+    i = t5
+    GOTO FOR_START17
+FOR_END19:
+    RETURN sum
+    END_FUNC sum_skip_fives
+
+main:
+    PARAM STR1
+    t1 = CALL printf, 1
+    DECLARE int a
+    a = 10
+    DECLARE int b
+    b = 20
+    DECLARE float pi
+    pi = 3.14
+    DECLARE int zero
+    zero = 0
+    PARAM STR2
+    t2 = CALL printf, 1
+    PARAM STR3
+    t3 = CALL printf, 1
+    DECLARE int sum
+    t4 = a + b
+    sum = t4
+    DECLARE int diff
+    t5 = b - a
+    diff = t5
+    DECLARE int prod
+    t6 = a * b
+    prod = t6
+    DECLARE int quot
+    t7 = b / a
+    quot = t7
+    DECLARE int mod
+    t8 = b % a
+    mod = t8
+    PARAM STR4
+    t9 = CALL printf, 1
+    PARAM STR5
+    t10 = CALL printf, 1
+    PARAM STR6
+    t11 = CALL printf, 1
+    PARAM STR7
+    t12 = CALL printf, 1
+    PARAM STR8
+    t13 = CALL printf, 1
+    PARAM STR9
+    t14 = CALL printf, 1
+    DECLARE int x
+    x = 10
+    t15 = x + 5
+    x = t15
+    PARAM STR10
+    t16 = CALL printf, 1
+    t17 = x - 3
+    x = t17
+    PARAM STR11
+    t18 = CALL printf, 1
+    t19 = x + x
+    x = t19
+    PARAM STR12
+    t20 = CALL printf, 1
+    t21 = x / 4
+    x = t21
+    PARAM STR13
+    t22 = CALL printf, 1
+    PARAM STR14
+    t23 = CALL printf, 1
+    DECLARE int test_result
+    test_result = 0
+    t24 = 5 < 10
+    IF_FALSE t24 GOTO ENDIF23
+    PARAM STR15
+    t25 = CALL printf, 1
+    t26 = test_result + 1
+    test_result = t26
+ENDIF23:
+    t27 = 10 > 5
+    IF_FALSE t27 GOTO ENDIF25
+    PARAM STR16
+    t28 = CALL printf, 1
+    t29 = test_result + 1
+    test_result = t29
+ENDIF25:
+    t30 = 5 <= 5
+    IF_FALSE t30 GOTO ENDIF27
+    PARAM STR17
+    t31 = CALL printf, 1
+    t32 = test_result + 1
+    test_result = t32
+ENDIF27:
+    t33 = 10 >= 10
+    IF_FALSE t33 GOTO ENDIF29
+    PARAM STR18
+    t34 = CALL printf, 1
+    t35 = test_result + 1
+    test_result = t35
+ENDIF29:
+    t36 = 5 == 5
+    IF_FALSE t36 GOTO ENDIF31
+    PARAM STR19
+    t37 = CALL printf, 1
+    t38 = test_result + 1
+    test_result = t38
+ENDIF31:
+    t39 = 5 != 10
+    IF_FALSE t39 GOTO ENDIF33
+    PARAM STR20
+    t40 = CALL printf, 1
+    t41 = test_result + 1
+    test_result = t41
+ENDIF33:
+    PARAM STR21
+    t42 = CALL printf, 1
+    t43 = 5 > 3
+    t44 = 10 > 5
+    t45 = t43 && t44
+    IF_FALSE t45 GOTO ENDIF35
+    PARAM STR22
+    t46 = CALL printf, 1
+ENDIF35:
+    t47 = 5 < 3
+    t48 = 10 > 5
+    t49 = t47 || t48
+    IF_FALSE t49 GOTO ENDIF37
+    PARAM STR23
+    t50 = CALL printf, 1
+ENDIF37:
+    t51 = !zero
+    IF_FALSE t51 GOTO ENDIF39
+    PARAM STR24
+    t52 = CALL printf, 1
+ENDIF39:
+    PARAM STR25
+    t53 = CALL printf, 1
+    DECLARE int score
+    score = 85
+    t54 = score >= 90
+    IF_FALSE t54 GOTO ELSE40
+    PARAM STR26
+    t55 = CALL printf, 1
+    GOTO ENDIF41
+ELSE40:
+    t56 = score >= 80
+    IF_FALSE t56 GOTO ELSE42
+    PARAM STR27
+    t57 = CALL printf, 1
+    GOTO ENDIF43
+ELSE42:
+    t58 = score >= 70
+    IF_FALSE t58 GOTO ELSE44
+    PARAM STR28
+    t59 = CALL printf, 1
+    GOTO ENDIF45
+ELSE44:
+    PARAM STR29
+    t60 = CALL printf, 1
+ENDIF45:
+ENDIF43:
+ENDIF41:
+    PARAM STR30
+    t61 = CALL printf, 1
+    DECLARE int while_sum
+    while_sum = 0
+    DECLARE int i
+    i = 1
+WHILE_START46:
+    t62 = i <= 5
+    IF_FALSE t62 GOTO WHILE_END47
+    t63 = while_sum + i
+    while_sum = t63
+    t64 = i + 1
+    i = t64
+    GOTO WHILE_START46
+WHILE_END47:
+    PARAM STR31
+    t65 = CALL printf, 1
+    PARAM STR32
+    t66 = CALL printf, 1
+    DECLARE int for_sum
+    for_sum = 0
+    DECLARE int j
+    j = 1
+FOR_START48:
+    t67 = j <= 10
+    IF_FALSE t67 GOTO FOR_END50
+    t68 = for_sum + j
+    for_sum = t68
+FOR_UPDATE49:
+    t69 = j + 1
+    j = t69
+    GOTO FOR_START48
+FOR_END50:
+    PARAM STR33
+    t70 = CALL printf, 1
+    PARAM STR34
+    t71 = CALL printf, 1
+    DECLARE int count
+    count = 0
+    DECLARE int row
+    row = 0
+FOR_START51:
+    t72 = row < 3
+    IF_FALSE t72 GOTO FOR_END53
+    DECLARE int col
+    col = 0
+FOR_START54:
+    t73 = col < 4
+    IF_FALSE t73 GOTO FOR_END56
+    t74 = count + 1
+    count = t74
+FOR_UPDATE55:
+    t75 = col + 1
+    col = t75
+    GOTO FOR_START54
+FOR_END56:
+FOR_UPDATE52:
+    t76 = row + 1
+    row = t76
+    GOTO FOR_START51
+FOR_END53:
+    PARAM STR35
+    t77 = CALL printf, 1
+    PARAM STR36
+    t78 = CALL printf, 1
+    DECLARE int break_sum
+    break_sum = 0
+    DECLARE int k
+    k = 1
+FOR_START57:
+    t79 = k <= 100
+    IF_FALSE t79 GOTO FOR_END59
+    t80 = k > 5
+    IF_FALSE t80 GOTO ENDIF61
+    GOTO FOR_END59
+ENDIF61:
+    t81 = break_sum + k
+    break_sum = t81
+FOR_UPDATE58:
+    t82 = k + 1
+    k = t82
+    GOTO FOR_START57
+FOR_END59:
+    PARAM STR37
+    t83 = CALL printf, 1
+    PARAM STR38
+    t84 = CALL printf, 1
+    DECLARE int cont_sum
+    cont_sum = 0
+    DECLARE int m
+    m = 1
+FOR_START62:
+    t85 = m <= 10
+    IF_FALSE t85 GOTO FOR_END64
+    t86 = m == 5
+    IF_FALSE t86 GOTO ENDIF66
+    GOTO FOR_UPDATE63
+ENDIF66:
+    t87 = cont_sum + m
+    cont_sum = t87
+FOR_UPDATE63:
+    t88 = m + 1
+    m = t88
+    GOTO FOR_START62
+FOR_END64:
+    PARAM STR39
+    t89 = CALL printf, 1
+    PARAM STR40
+    t90 = CALL printf, 1
+    DECLARE int add_result
+    PARAM 15
+    PARAM 25
+    t91 = CALL add, 2
+    add_result = t91
+    PARAM STR41
+    t92 = CALL printf, 1
+    DECLARE int sub_result
+    PARAM 100
+    PARAM 37
+    t93 = CALL subtract, 2
+    sub_result = t93
+    PARAM STR42
+    t94 = CALL printf, 1
+    DECLARE int max_result
+    PARAM 42
+    PARAM 17
+    t95 = CALL max, 2
+    max_result = t95
+    PARAM STR43
+    t96 = CALL printf, 1
+    DECLARE int min_result
+    PARAM 42
+    PARAM 17
+    t97 = CALL min, 2
+    min_result = t97
+    PARAM STR44
+    t98 = CALL printf, 1
+    PARAM STR45
+    t99 = CALL printf, 1
+    DECLARE int fact_result
+    PARAM 5
+    t100 = CALL factorial, 1
+    fact_result = t100
+    PARAM STR46
+    t101 = CALL printf, 1
+    DECLARE int sum_result
+    PARAM 10
+    t102 = CALL sum_to_n, 1
+    sum_result = t102
+    PARAM STR47
+    t103 = CALL printf, 1
+    PARAM STR48
+    t104 = CALL printf, 1
+    DECLARE int fib_result
+    PARAM 10
+    t105 = CALL fib, 1
+    fib_result = t105
+    PARAM STR49
+    t106 = CALL printf, 1
+    PARAM STR50
+    t107 = CALL printf, 1
+    DECLARE int first_div
+    PARAM 20
+    PARAM 7
+    t108 = CALL find_first_divisible, 2
+    first_div = t108
+    PARAM STR51
+    t109 = CALL printf, 1
+    PARAM STR52
+    t110 = CALL printf, 1
+    DECLARE int skip_result
+    PARAM 20
+    t111 = CALL sum_skip_fives, 1
+    skip_result = t111
+    PARAM STR53
+    t112 = CALL printf, 1
+    PARAM STR54
+    t113 = CALL printf, 1
+    DECLARE int prec1
+    t114 = 12
+    t115 = 2 + t114
+    prec1 = t115
+    PARAM STR55
+    t116 = CALL printf, 1
+    DECLARE int prec2
+    t117 = 5
+    t118 = t117 * 4
+    prec2 = t118
+    PARAM STR56
+    t119 = CALL printf, 1
+    DECLARE int prec3
+    t120 = 12
+    t121 = 20 - t120
+    t122 = t121 + 2
+    prec3 = t122
+    PARAM STR57
+    t123 = CALL printf, 1
+    PARAM STR58
+    t124 = CALL printf, 1
+    DECLARE int p
+    p = 5
+    DECLARE int q
+    q = 3
+    DECLARE int r
+    r = 2
+    DECLARE int complex1
+    t125 = p + q
+    t126 = t125 * r
+    t127 = p / 1
+    t128 = t126 - t127
+    complex1 = t128
+    PARAM STR59
+    t129 = CALL printf, 1
+    DECLARE int complex2
+    t130 = p * q
+    t131 = r * p
+    t132 = t130 + t131
+    t133 = t132 - q
+    complex2 = t133
+    PARAM STR60
+    t134 = CALL printf, 1
+    PARAM STR61
+    t135 = CALL printf, 1
+    DECLARE int age
+    age = 25
+    DECLARE int has_license
+    has_license = 1
+    t136 = age >= 18
+    t137 = t136 && has_license
+    IF_FALSE t137 GOTO ENDIF68
+    PARAM STR62
+    t138 = CALL printf, 1
+ENDIF68:
+    DECLARE int is_weekend
+    is_weekend = 0
+    DECLARE int is_holiday
+    is_holiday = 1
+    t139 = is_weekend || is_holiday
+    IF_FALSE t139 GOTO ENDIF70
+    PARAM STR63
+    t140 = CALL printf, 1
+ENDIF70:
+    PARAM STR64
+    t141 = CALL printf, 1
+    DECLARE int even_sum
+    even_sum = 0
+    DECLARE int odd_sum
+    odd_sum = 0
+    DECLARE int n
+    n = 1
+FOR_START71:
+    t142 = n <= 10
+    IF_FALSE t142 GOTO FOR_END73
+    t143 = n % 2
+    t144 = t143 == 0
+    IF_FALSE t144 GOTO ELSE74
+    t145 = even_sum + n
+    even_sum = t145
+    GOTO ENDIF75
+ELSE74:
+    t146 = odd_sum + n
+    odd_sum = t146
+ENDIF75:
+FOR_UPDATE72:
+    t147 = n + 1
+    n = t147
+    GOTO FOR_START71
+FOR_END73:
+    PARAM STR65
+    t148 = CALL printf, 1
+    PARAM STR66
+    t149 = CALL printf, 1
+    PARAM STR67
+    t150 = CALL printf, 1
+    PARAM STR68
+    t151 = CALL printf, 1
+    PARAM STR69
+    t152 = CALL printf, 1
+    DECLARE int checksum
+    t153 = add_result + sub_result
+    t154 = t153 + max_result
+    t155 = t154 + min_result
+    checksum = t155
+    RETURN checksum
+    END_FUNC main

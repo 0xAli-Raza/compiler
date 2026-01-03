@@ -1,0 +1,12 @@
+Name	Category
+main	identifier
+x	identifier
+10	literal
+printf	identifier
+"Wow It is 10"	literal
+"It is not 10"	literal
+"\n"	literal
+i	identifier
+0	literal
+1	literal
+"%d"	literal

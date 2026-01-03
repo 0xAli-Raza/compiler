@@ -3,6 +3,8 @@
 # Integrates: Lexer → Parser → Semantic → IR → Optimizer → CodeGen
 
 import sys
+import subprocess
+import os
 from lexer import Lexer
 from ParserV2 import Parser, print_ast
 from semantic import SemanticAnalyzer, SemanticError
@@ -22,6 +24,80 @@ def print_banner():
     print(banner)
 
 
+def compile_and_run_c(c_file, base_name):
+    """Compile C code with GCC and execute it"""
+    print("\n" + "=" * 70)
+    print("PHASE 7: COMPILATION & EXECUTION (GCC)")
+    print("=" * 70)
+    
+    # Determine executable name based on OS
+    if os.name == 'nt':  # Windows
+        exe_file = f"{base_name}.exe"
+    else:  # Linux/Mac
+        exe_file = f"{base_name}"
+    
+    # Compile with GCC
+    print(f"Compiling {c_file} with GCC...")
+    compile_cmd = ['gcc', c_file, '-o', exe_file]
+    
+    try:
+        result = subprocess.run(
+            compile_cmd,
+            capture_output=True,
+            text=True,
+            timeout=10
+        )
+        
+        if result.returncode != 0:
+            print(f"GCC Compilation failed!")
+            print(f"\nGCC Errors:")
+            print(result.stderr)
+            return False
+        
+        print(f"Compilation successful: {exe_file}")
+        
+        # Execute the compiled program
+        print(f"\n{'─' * 70}")
+        print("PROGRAM OUTPUT:")
+        print('─' * 70)
+        
+        if os.name == 'nt':  # Windows
+            exec_cmd = [exe_file]
+        else:  # Linux/Mac
+            exec_cmd = [f'./{exe_file}']
+        
+        exec_result = subprocess.run(
+            exec_cmd,
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        
+        # Print program output
+        if exec_result.stdout:
+            print(exec_result.stdout)
+        if exec_result.stderr:
+            print("STDERR:", exec_result.stderr)
+        
+        print('─' * 70)
+        print(f"Program exited with code: {exec_result.returncode}")
+        
+        return True
+        
+    except subprocess.TimeoutExpired:
+        print("Execution timeout (program took too long)")
+        return False
+    except FileNotFoundError:
+        print("GCC not found! Please install GCC:")
+        print("   - Linux: sudo apt-get install gcc")
+        print("   - Mac: xcode-select --install")
+        print("   - Windows: Install MinGW or use WSL")
+        return False
+    except Exception as e:
+        print(f"Error during compilation/execution: {e}")
+        return False
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python compiler.py <source_file.mini> [options]")
@@ -34,6 +110,8 @@ def main():
         print("  --ast        Show AST only")
         print("  --ir         Show IR only")
         print("  --all        Show all phases")
+        print("  --run        Compile and run C code (only for --target=c)")
+        print("  --no-run     Don't compile/run C code (default for --target=c)")
         return
 
     # Parse command line arguments
@@ -43,6 +121,7 @@ def main():
     show_ast = False
     show_ir = False
     show_all = False
+    auto_run = False
     
     for arg in sys.argv[2:]:
         if arg == '-O0':
@@ -61,6 +140,10 @@ def main():
             show_ir = True
         elif arg == '--all':
             show_all = True
+        elif arg == '--run':
+            auto_run = True
+        elif arg == '--no-run':
+            auto_run = False
 
     print_banner()
 
@@ -75,19 +158,19 @@ def main():
         lexer = Lexer(source_file)
         lexer.tokenize()
     except FileNotFoundError:
-        print(f"❌ Error: File '{source_file}' not found.")
+        print(f"Error: File '{source_file}' not found.")
         return
     except Exception as e:
-        print(f"❌ Lexer Error: {e}")
+        print(f"Lexer Error: {e}")
         return
 
     if lexer.errors:
-        print("\n❌ LEXICAL ERRORS:")
+        print("\nLEXICAL ERRORS:")
         for err in lexer.errors:
             print(f"   {err}")
         return
     else:
-        print(f"✅ Lexical analysis completed. ({len(lexer.get_tokens())} tokens)")
+        print(f"Lexical analysis completed. ({len(lexer.get_tokens())} tokens)")
 
     # =====================================================
     # PHASE 2: SYNTAX ANALYSIS (PARSING)
@@ -101,12 +184,12 @@ def main():
     ast = parser.parse()
 
     if parser.errors:
-        print("\n❌ SYNTAX ERRORS:")
+        print("\n SYNTAX ERRORS:")
         for err in parser.errors:
             print(f"   {err}")
         return
     else:
-        print(f"✅ Parsing completed successfully.")
+        print(f"Parsing completed successfully.")
 
     if show_ast or show_all:
         print("\n" + "-" * 70)
@@ -124,9 +207,9 @@ def main():
     try:
         analyzer = SemanticAnalyzer()
         analyzer.analyze(ast)
-        print("✅ Semantic analysis completed successfully.")
+        print("Semantic analysis completed successfully.")
     except SemanticError as e:
-        print(f"❌ SEMANTIC ERRORS:{e}")
+        print(f"SEMANTIC ERRORS:{e}")
         return
 
     # =====================================================
@@ -139,7 +222,7 @@ def main():
     ir_gen = IRGenerator()
     ir_instructions = ir_gen.generate(ast)
     
-    print(f"✅ IR generated. ({len(ir_instructions)} instructions)")
+    print(f"IR generated. ({len(ir_instructions)} instructions)")
     
     if show_ir or show_all:
         print("\n" + "-" * 70)
@@ -159,7 +242,7 @@ def main():
     optimized_ir = optimizer.optimize(ir_instructions)
     
     reduced = len(ir_instructions) - len(optimized_ir)
-    print(f"✅ Optimization completed. ({len(optimized_ir)} instructions, {reduced} removed)")
+    print(f"Optimization completed. ({len(optimized_ir)} instructions, {reduced} removed)")
     
     if opt_level > 0:
         optimizer.print_stats()
@@ -180,15 +263,11 @@ def main():
     
     code_gen = CodeGenerator(target=target)
     target_code = code_gen.generate(
-    optimized_ir, 
-    string_literals=ir_gen.string_literals,
-    var_types=ir_gen.var_types
+        optimized_ir, 
+        string_literals=ir_gen.string_literals,
+        var_types=ir_gen.var_types
     )
-    target_code = code_gen.generate(
-    optimized_ir, 
-    string_literals=ir_gen.string_literals,
-    var_types=ir_gen.var_types  # Add this line!
-)
+    
     # Determine output file name
     base_name = source_file.rsplit('.', 1)[0]
     if target == 'x86':
@@ -200,8 +279,14 @@ def main():
     with open(output_file, 'w') as f:
         f.write(target_code)
     
-    print(f"✅ Code generation completed.")
-    print(f"📄 Output written to: {output_file}")
+    print(f"Code generation completed.")
+    print(f"Output written to: {output_file}")
+
+    # =====================================================
+    # PHASE 7: COMPILE AND RUN (C target only)
+    # =====================================================
+    if target == 'c' and auto_run:
+        compile_and_run_c(output_file, base_name)
 
     # =====================================================
     # COMPILATION SUMMARY
@@ -243,10 +328,14 @@ def main():
         for instr in optimized_ir:
             f.write(f"{instr}\n")
     
-    print(f"\n📂 Additional files generated:")
+    print(f"\n Additional files generated:")
     print(f"   - tokens.txt")
     print(f"   - symbol_table.txt")
     print(f"   - {base_name}_ir.txt")
+    
+    if target == 'c' and not auto_run:
+        print(f"\n Tip: Use --run flag to automatically compile and execute")
+        print(f"   Example: python compiler.py {source_file} --target=c --run")
 
 
 if __name__ == "__main__":

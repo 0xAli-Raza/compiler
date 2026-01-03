@@ -1,0 +1,70 @@
+UNOPTIMIZED IR:
+----------------------------------------
+
+main:
+    DECLARE int x
+    x = 10
+    t1 = x == 10
+    IF_FALSE t1 GOTO ELSE1
+    PARAM STR1
+    t2 = CALL printf, 1
+    GOTO ENDIF2
+ELSE1:
+    PARAM STR2
+    t3 = CALL printf, 1
+ENDIF2:
+    PARAM STR3
+    t4 = CALL printf, 1
+    DECLARE int i
+    i = 0
+FOR_START3:
+    t5 = i < 10
+    IF_FALSE t5 GOTO FOR_END5
+    PARAM STR4
+    PARAM i
+    t6 = CALL printf, 2
+    PARAM STR5
+    t7 = CALL printf, 1
+FOR_UPDATE4:
+    t8 = i + 1
+    i = t8
+    GOTO FOR_START3
+FOR_END5:
+    RETURN 0
+    END_FUNC main
+
+
+OPTIMIZED IR:
+----------------------------------------
+
+main:
+    DECLARE int x
+    x = 10
+    t1 = x == 10
+    IF_FALSE t1 GOTO ELSE1
+    PARAM STR1
+    t2 = CALL printf, 1
+    GOTO ENDIF2
+ELSE1:
+    PARAM STR2
+    t3 = CALL printf, 1
+ENDIF2:
+    PARAM STR3
+    t4 = CALL printf, 1
+    DECLARE int i
+    i = 0
+FOR_START3:
+    t5 = i < 10
+    IF_FALSE t5 GOTO FOR_END5
+    PARAM STR4
+    PARAM i
+    t6 = CALL printf, 2
+    PARAM STR5
+    t7 = CALL printf, 1
+FOR_UPDATE4:
+    t8 = i + 1
+    i = t8
+    GOTO FOR_START3
+FOR_END5:
+    RETURN 0
+    END_FUNC main
