@@ -2,8 +2,7 @@
 
 # <div align=center> Mini-C Compiler</div>
 
-
-
+---
 ## Overview
 
 **Mini-C Compiler** is a complete compiler implementation that translates a subset of C language into executable code. It demonstrates all major phases of compilation: lexical analysis, parsing, semantic analysis, intermediate representation, optimization, and code generation.
