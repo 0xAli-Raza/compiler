@@ -556,6 +556,5 @@ argument_list → expression (',' expression)*
 **End of Documentation**
 
 **Auther**: ALI RAZA
-**Last Updated**: 22 Jan 2026
 
-**Last Updated**: 27 Dec, 2025
+**Last Updated**: 22 Jan 2026
